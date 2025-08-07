@@ -12,13 +12,7 @@ import {
 } from "@mui/material";
 import { Event, ConfirmationNumber, Logout, Group } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-
-// Hook simple para obtener el rol actual
-function useCurrentUser() {
-  const role = localStorage.getItem("role");
-  const token = localStorage.getItem("token");
-  return { role, token };
-}
+import { useCurrentUser } from "../hooks/useCurrentUser";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
