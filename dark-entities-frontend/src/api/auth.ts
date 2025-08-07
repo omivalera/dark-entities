@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_BASE_URL } from "./config";
 
 export const login = async (email: string, password: string) => {
   const data = new URLSearchParams();
@@ -6,7 +7,7 @@ export const login = async (email: string, password: string) => {
   data.append("password", password);
 
   const res = await axios.post(
-    "http://127.0.0.1:8000/auth/login",
+    `${API_BASE_URL}/auth/login`,
     data,
     {
       headers: {
@@ -19,7 +20,7 @@ export const login = async (email: string, password: string) => {
 
 export const register = async (email: string, password: string) => {
   const res = await axios.post(
-    "http://127.0.0.1:8000/auth/register",
+    `${API_BASE_URL}/auth/register`,
     { email, password },
     { headers: { "Content-Type": "application/json" } }
   );
