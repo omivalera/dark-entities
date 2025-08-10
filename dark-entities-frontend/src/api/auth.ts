@@ -1,6 +1,11 @@
 import axios from "axios";
 import { API_BASE_URL } from "./config";
 
+export const api = axios.create({
+  baseURL: API_BASE_URL,     // ahora apunta a localhost
+  withCredentials: true,
+});
+
 export const login = async (email: string, password: string) => {
   const data = new URLSearchParams();
   data.append("username", email);
@@ -18,10 +23,10 @@ export const login = async (email: string, password: string) => {
   return res.data; // { access_token, token_type, user }
 };
 
-export const register = async (email: string, password: string, name: string, last_name: string, birthdate: string) => {
+export const register = async (email: string, password: string, name: string, last_name: string, birthdate: string, role: string) => {
   const res = await axios.post(
     `${API_BASE_URL}/auth/register`,
-    { email, password, name, last_name, birthdate },
+    { email, password, name, last_name, birthdate, role },
     { headers: { "Content-Type": "application/json" } }
   );
   return res.data;

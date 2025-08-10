@@ -3,7 +3,8 @@ import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 
 import Dashboard from "./pages/Dashboard";
-import ProtectedRoute from "./components/ProtectedRoute";
+import UserManagement from "./pages/UserManagement";
+// import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home";
 
 function App() {
@@ -13,12 +14,14 @@ function App() {
         {/* <Route path="/" element={<RegisterPage />} /> */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/dashboard/*" element={
+        {/* <Route path="/dashboard" element={
           <ProtectedRoute>
             <Dashboard />
           </ProtectedRoute>
-        } />
+        } /> */}
         <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/usuarios" element={<UserManagement />} />
         {/* Agrega más rutas protegidas aquí */}
       </Routes>
     </BrowserRouter>

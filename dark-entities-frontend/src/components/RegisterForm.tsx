@@ -4,7 +4,7 @@ import { register } from "../api/auth";
 import { TextField, Button, Box, Typography, Alert } from "@mui/material";
 
 interface Props {
-  onRegisterSuccess: (user: unknown) => void;
+  onRegisterSuccess: (user: any) => void;
 }
 
 
@@ -21,12 +21,11 @@ export default function RegisterForm({ onRegisterSuccess }: Props) {
     e.preventDefault();
     setError("");
     try {
-      const user = await register(email, password, name, lastName, birthdate);
+      const user = await register(email, password, name, lastName, birthdate, "user");
       setSuccess(true);
       onRegisterSuccess(user);
-    } catch (err: unknown) {
-      const detail = (err as { response?: { data?: { detail?: string } } })?.response?.data?.detail;
-      setError(detail || "Registro fallido");
+    } catch (err: any) {
+      setError(err.response?.data?.detail || "Registro fallido");
     }
   };
 

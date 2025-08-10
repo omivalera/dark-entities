@@ -20,5 +20,23 @@ class UserRead(BaseModel):
     birthdate: str
     role: str
 
+    class UserRead(BaseModel):
+        id: int
+        email: str
+        name: str
+        last_name: str
+        birthdate: str
+        role: str
+
+        class Config:
+            orm_mode = True
+    role: str
+
     class Config:
         orm_mode = True
+
+
+class UserUpdate(BaseModel):
+    name: str
+    last_name: str
+    birthdate: str

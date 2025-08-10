@@ -1,7 +1,11 @@
+from sqlalchemy.orm import Session
+from app.models.user import User
+
+
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt, JWTError
-from app.schemas.user import UserRead
+from app.schemas.user import UserRead, UserUpdate
 from app.models.user import User
 from app.database import SessionLocal
 from sqlalchemy.orm import Session
@@ -18,6 +22,20 @@ def get_db():
         yield db
     finally:
         db.close()
+
+def get_all_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    """
+    Retrieve users from the database with pagination.
+
+    Args:
+        skip (int): Number of records to skip.
+        limit (int): Maximum number of records to return.
+        db (Session): SQLAlchemy database session.
+
+    Returns:
+        List[User]: A list of User objects in the database.
+    """
+    return db.query(User).offset(skip).limit(limit).all()
 
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)) -> User:
     credentials_exception = HTTPException(
@@ -55,3 +73,11 @@ def get_current_organizer(user: User = Depends(get_current_user)):
 
 def get_current_normal_user(user: User = Depends(get_current_user)):
     return role_required("user")(user)
+
+def update_user_info(user_update: UserUpdate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    db.query(User).filter(User.id == current_user.id).update(user_update.dict())
+    db.commit()
+    db.refresh(current_user)
+    return current_user
+
+

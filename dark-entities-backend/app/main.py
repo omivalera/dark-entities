@@ -27,4 +27,5 @@ app.include_router(validate.router, prefix="/validate", tags=["validate"])
 app.include_router(admin.router, prefix="/admin", tags=["admin"])
 app.include_router(staff.router, prefix="/staff", tags=["staff"])
 app.include_router(users.router, prefix="/users", tags=["users"])
+app.include_router(admin.router, prefix="/api/users", tags=["users"])
 

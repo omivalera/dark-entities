@@ -14,15 +14,14 @@ import "../dashboard-tml.css";
 import { Event, ConfirmationNumber, Logout, Group } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useCurrentUser } from "../hooks/useCurrentUser";
-import { useAuth } from "../context/AuthContext";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
   const { role } = useCurrentUser();
-  const { logout } = useAuth();
 
   const handleLogout = () => {
-    logout();
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
     navigate("/");
   };
 
