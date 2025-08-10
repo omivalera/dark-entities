@@ -19,13 +19,6 @@ try:
     from pydantic_settings import BaseSettings, SettingsConfigDict
     from pydantic import field_validator
 
-from typing import List
-import os
-
-try:
-    from pydantic_settings import BaseSettings, SettingsConfigDict
-
-
     class Settings(BaseSettings):
         model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
         PROJECT_NAME: str = "Dark Entities"

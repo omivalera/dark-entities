@@ -2,7 +2,8 @@
 import { useState } from "react";
 import { login } from "../api/auth";
 import { TextField, Button, Box, Typography, Alert } from "@mui/material";
-import { useAuth, User } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
+import type { User } from "../context/AuthContext";
 
 
 
