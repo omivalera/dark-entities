@@ -1,15 +1,3 @@
-# from fastapi import APIRouter
-
-# router = APIRouter()
-
-# @router.post("/register")
-# async def register():
-#     return {"msg": "User registration endpoint"}
-
-# @router.post("/login")
-# async def login():
-#     return {"msg": "User login endpoint"}
-
 import uuid
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
@@ -20,11 +8,11 @@ from app.models.user import User
 from app.schemas.user import UserCreate, UserRead
 from app.core.dependencies import get_db
 from app.core.security import get_password_hash, verify_password
-import os
+from app.core.config import settings
 
 router = APIRouter()
 
-SECRET_KEY = os.getenv("SECRET_KEY", "changeme")
+SECRET_KEY = settings.SECRET_KEY
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24  # 1 día
 

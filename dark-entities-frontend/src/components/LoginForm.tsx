@@ -2,17 +2,19 @@
 import { useState } from "react";
 import { login } from "../api/auth";
 import { TextField, Button, Box, Typography, Alert } from "@mui/material";
+import { useAuth, User } from "../context/AuthContext";
 
 
 
 
 interface Props {
-  onLoginSuccess: (user: any, token: string) => void;
+  onLoginSuccess: (user: User, token: string) => void;
 }
 export default function LoginForm({ onLoginSuccess }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const { login: loginCtx } = useAuth();
   
   
   
@@ -22,13 +24,11 @@ export default function LoginForm({ onLoginSuccess }: Props) {
     
     try {
       const data = await login(email, password);
-      localStorage.setItem("token", data.access_token);
-      localStorage.setItem("role", data.user.role);
-      localStorage.setItem("name", data.user.name);
-      localStorage.setItem("last_name", data.user.last_name);
+      loginCtx(data.user, data.access_token);
       onLoginSuccess(data.user, data.access_token);
-    } catch (err: any) {
-      setError(err.response?.data?.detail || "Login failed");
+    } catch (err: unknown) {
+      const detail = (err as { response?: { data?: { detail?: string } } })?.response?.data?.detail;
+      setError(detail || "Login failed");
     }
   };
   
