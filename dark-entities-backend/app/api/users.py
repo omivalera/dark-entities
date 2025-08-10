@@ -5,4 +5,10 @@ router = APIRouter()
 
 @router.get("/profile")
 def user_profile(current_user=Depends(get_current_normal_user)):
-    return {"email": current_user.email, "role": current_user.role}
+    return {
+        "email": current_user.email,
+        "name": current_user.name,
+        "last_name": current_user.last_name,
+        "birthdate": current_user.birthdate,
+        "role": current_user.role
+    }

@@ -20,4 +20,7 @@ class User(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     email = Column(String, unique=True, index=True, nullable=False)
     hashed_password = Column(String, nullable=False)
+    name = Column(String, nullable=True)
+    last_name = Column(String, nullable=True)
+    birthdate = Column(String, nullable=True)  # formato YYYY-MM-DD
     role = Column(Enum('user', 'organizer', 'admin', 'staff', name='user_roles'), nullable=False, default='user')

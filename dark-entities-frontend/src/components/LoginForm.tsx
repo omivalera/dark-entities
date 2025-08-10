@@ -1,5 +1,7 @@
+
 import { useState } from "react";
 import { login } from "../api/auth";
+import { TextField, Button, Box, Typography, Alert } from "@mui/material";
 
 
 
@@ -22,6 +24,8 @@ export default function LoginForm({ onLoginSuccess }: Props) {
       const data = await login(email, password);
       localStorage.setItem("token", data.access_token);
       localStorage.setItem("role", data.user.role);
+      localStorage.setItem("name", data.user.name);
+      localStorage.setItem("last_name", data.user.last_name);
       onLoginSuccess(data.user, data.access_token);
     } catch (err: any) {
       setError(err.response?.data?.detail || "Login failed");
@@ -30,28 +34,32 @@ export default function LoginForm({ onLoginSuccess }: Props) {
   
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-sm mx-auto mt-10 p-6 bg-white rounded-lg shadow">
-      <h2 className="text-2xl font-bold mb-4">Iniciar sesión</h2>
-      {error && <div className="mb-2 text-red-600">{error}</div>}
-      <input
-        type="email"
-        placeholder="Correo"
-        className="w-full mb-3 p-2 border rounded"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        required
-      />
-      <input
-        type="password"
-        placeholder="Contraseña"
-        className="w-full mb-3 p-2 border rounded"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        required
-      />
-      <button type="submit" className="w-full bg-black text-white p-2 rounded hover:bg-gray-800">
-        Ingresar
-      </button>
-    </form>
+    <Box position="fixed" top={0} left={0} width="100vw" height="100vh" display="flex" alignItems="center" justifyContent="center" zIndex={1300} bgcolor="rgba(0,0,0,0.98)">
+      <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: 400, width: '100%', p: 4, bgcolor: "#000000ff", borderRadius: 2, boxShadow: 2, display: "flex", flexDirection: "column", gap: 2 }}>
+        <Typography variant="h5" fontWeight={700} mb={1} color="primary" align="center">Iniciar sesión</Typography>
+        {error && <Alert severity="error">{error}</Alert>}
+        <TextField
+          label="Correo"
+          type="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          required
+          fullWidth
+          autoComplete="email"
+        />
+        <TextField
+          label="Contraseña"
+          type="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          required
+          fullWidth
+          autoComplete="current-password"
+        />
+        <Button type="submit" variant="contained" color="primary" sx={{ mt: 2, fontWeight: 600 }}>
+          Ingresar
+        </Button>
+      </Box>
+    </Box>
   );
 }
