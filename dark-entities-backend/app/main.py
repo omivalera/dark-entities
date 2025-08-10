@@ -9,6 +9,9 @@ app = FastAPI(
     version="0.1.0"
 )
 
+# `ALLOW_ORIGINS` is parsed from the environment as a comma-separated list.
+# Whitespace is stripped and empty values are ignored; if no valid origins are
+# supplied, it defaults to `[*]` (all origins). See `core/config.py`.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.ALLOW_ORIGINS,
