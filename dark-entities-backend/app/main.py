@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.api import auth, events, tickets, validate, admin, staff, users
 from fastapi.middleware.cors import CORSMiddleware
+from app.core.config import settings
 
 app = FastAPI(
     title="Dark Entities API",
@@ -8,20 +9,16 @@ app = FastAPI(
     version="0.1.0"
 )
 
+# `ALLOW_ORIGINS` is parsed from the environment as a comma-separated list.
+# Whitespace is stripped and empty values are ignored; if no valid origins are
+# supplied, it defaults to `[*]` (all origins). See `core/config.py`.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # o ["*"] para pruebas
+    allow_origins=settings.ALLOW_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=["http://localhost:5173"],  # o ["*"] para pruebas
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
 
 app.include_router(auth.router, prefix="/auth", tags=["auth"])
 app.include_router(events.router, prefix="/events", tags=["events"])
