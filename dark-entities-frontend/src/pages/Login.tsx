@@ -1,7 +1,7 @@
 import LoginForm from "../components/LoginForm";
 
 export default function LoginPage() {
-  const handleLoginSuccess = (user: any, token: string) => {
+  const handleLoginSuccess = () => {
     // Redirige, muestra toast, etc.
     window.location.href = "/dashboard";
   };
