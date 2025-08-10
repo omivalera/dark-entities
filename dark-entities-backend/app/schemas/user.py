@@ -2,16 +2,22 @@ from pydantic import BaseModel, EmailStr
 from typing import Optional
 
 
+
 class UserCreate(BaseModel):
-    id: Optional[str] = None
     email: EmailStr
     password: str
+    name: str
+    last_name: str
+    birthdate: str  # formato YYYY-MM-DD
     role: Optional[str] = "user"   # Solo para admin
 
 
+
 class UserRead(BaseModel):
-    id: Optional[str] = None
     email: EmailStr
+    name: str
+    last_name: str
+    birthdate: str
     role: str
 
     class Config:

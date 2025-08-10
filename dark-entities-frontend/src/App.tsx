@@ -38,8 +38,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
+
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -53,11 +55,7 @@ function App() {
             <Dashboard />
           </ProtectedRoute>
         } />
-        <Route path="/" element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        } />
+        <Route path="/" element={<Home />} />
         {/* Agrega más rutas protegidas aquí */}
       </Routes>
     </BrowserRouter>

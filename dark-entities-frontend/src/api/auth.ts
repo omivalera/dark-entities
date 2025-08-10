@@ -18,10 +18,10 @@ export const login = async (email: string, password: string) => {
   return res.data; // { access_token, token_type, user }
 };
 
-export const register = async (email: string, password: string) => {
+export const register = async (email: string, password: string, name: string, last_name: string, birthdate: string) => {
   const res = await axios.post(
     `${API_BASE_URL}/auth/register`,
-    { email, password },
+    { email, password, name, last_name, birthdate },
     { headers: { "Content-Type": "application/json" } }
   );
   return res.data;

@@ -1,0 +1,78 @@
+/* Tomorrowland-inspired Dashboard Theme */
+
+
+body {
+  background: #000000;
+  font-family: 'Inter', 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  color: #000000;
+}
+
+
+.dashboard-tml-sidebar {
+  background: #000000;
+  border-right: 1px solid #0f0d5c;
+  min-height: 100vh;
+}
+
+
+.dashboard-tml-sidebar .MuiListItemButton-root {
+  color: #ffffff;
+  border-radius: 6px;
+  margin: 2px 6px;
+  font-weight: 500;
+  font-family: 'Inter', 'Montserrat', sans-serif;
+  transition: background 0.2s, color 0.2s;
+}
+.dashboard-tml-sidebar .MuiListItemButton-root:hover, .dashboard-tml-sidebar .Mui-selected {
+  background: #f9f9f7;
+  color: #ffffff;
+  
+}
+.dashboard-tml-sidebar .MuiListItemIcon-root {
+  color: #ffffff;
+}
+
+
+.dashboard-tml-header {
+  background: #ffffff00;
+  border-bottom: 1px solid #f8f7ff00;
+  box-shadow: none;
+}
+
+
+.dashboard-tml-title {
+  font-family: 'Montserrat', 'Inter', Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #ffffff;
+  text-shadow: none;
+  font-size: 2rem;
+}
+.dashboard-tml-subtitle {
+  color: #f5e9d6;
+  font-weight: 400;
+  font-size: 1.1rem;
+  text-shadow: none;
+}
+
+
+.dashboard-tml-main {
+  background: none;
+  border-radius: 0;
+  margin: 0;
+  padding: 32px 0 0 0;
+  min-height: 80vh;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: #18122B;
+}
+::-webkit-scrollbar-thumb {
+  background: #FFD70044;
+  border-radius: 4px;
+}

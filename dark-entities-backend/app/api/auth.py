@@ -53,6 +53,9 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
         "user": {
             "id": user.id,
             "email": user.email,
+            "name": user.name,
+            "last_name": user.last_name,
+            "birthdate": user.birthdate,
             "role": user.role
         }
     }
@@ -67,6 +70,9 @@ def register(user_in: UserCreate, db: Session = Depends(get_db)):
         id=str(uuid.uuid4()),
         email=user_in.email,
         hashed_password=get_password_hash(user_in.password),
+        name=user_in.name,
+        last_name=user_in.last_name,
+        birthdate=user_in.birthdate,
         role=user_in.role or "user"
     )
     db.add(user_obj)

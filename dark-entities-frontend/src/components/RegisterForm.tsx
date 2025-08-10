@@ -1,13 +1,19 @@
+
 import { useState } from "react";
 import { register } from "../api/auth";
+import { TextField, Button, Box, Typography, Alert } from "@mui/material";
 
 interface Props {
   onRegisterSuccess: (user: any) => void;
 }
 
+
 export default function RegisterForm({ onRegisterSuccess }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [birthdate, setBirthdate] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
@@ -15,7 +21,7 @@ export default function RegisterForm({ onRegisterSuccess }: Props) {
     e.preventDefault();
     setError("");
     try {
-      const user = await register(email, password);
+      const user = await register(email, password, name, lastName, birthdate);
       setSuccess(true);
       onRegisterSuccess(user);
     } catch (err: any) {
@@ -24,29 +30,58 @@ export default function RegisterForm({ onRegisterSuccess }: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-sm mx-auto mt-10 p-6 bg-white rounded-lg shadow">
-      <h2 className="text-2xl font-bold mb-4">Crear cuenta</h2>
-      {error && <div className="mb-2 text-red-600">{error}</div>}
-      {success && <div className="mb-2 text-green-600">¡Registro exitoso! Ahora inicia sesión.</div>}
-      <input
-        type="email"
-        placeholder="Correo"
-        className="w-full mb-3 p-2 border rounded"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        required
-      />
-      <input
-        type="password"
-        placeholder="Contraseña"
-        className="w-full mb-3 p-2 border rounded"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        required
-      />
-      <button type="submit" className="w-full bg-black text-white p-2 rounded hover:bg-gray-800">
-        Registrarse
-      </button>
-    </form>
+    <Box position="fixed" top={0} left={0} width="100vw" height="100vh" display="flex" alignItems="center" justifyContent="center" zIndex={1300} bgcolor="rgba(0,0,0,0.98)">
+      <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: 400, width: '100%', p: 4, bgcolor: "#000000ff", borderRadius: 2, boxShadow: 2, display: "flex", flexDirection: "column", gap: 2 }}>
+        <Typography variant="h5" fontWeight={700} mb={1} color="primary" align="center">Crear cuenta</Typography>
+        {error && <Alert severity="error">{error}</Alert>}
+        {success && <Alert severity="success">¡Registro exitoso! Ahora inicia sesión.</Alert>}
+        <TextField
+          label="Nombre(s)"
+          value={name}
+          onChange={e => setName(e.target.value)}
+          required
+          fullWidth
+          autoComplete="given-name"
+        />
+        <TextField
+          label="Apellido(s)"
+          value={lastName}
+          onChange={e => setLastName(e.target.value)}
+          required
+          fullWidth
+          autoComplete="family-name"
+        />
+        <TextField
+          label="Fecha de nacimiento"
+          type="date"
+          value={birthdate}
+          onChange={e => setBirthdate(e.target.value)}
+          required
+          fullWidth
+          InputLabelProps={{ shrink: true }}
+        />
+        <TextField
+          label="Correo"
+          type="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          required
+          fullWidth
+          autoComplete="email"
+        />
+        <TextField
+          label="Contraseña"
+          type="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          required
+          fullWidth
+          autoComplete="new-password"
+        />
+        <Button type="submit" variant="contained" color="primary" sx={{ mt: 2, fontWeight: 600 }}>
+          Registrarse
+        </Button>
+      </Box>
+    </Box>
   );
 }
