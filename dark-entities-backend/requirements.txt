@@ -9,4 +9,4 @@ python-jose==3.5.0
 qrcode[pil]==8.2
 pydantic[email]==2.11.7
 python-multipart==0.0.20
-pydantic-settings==2.5.4
+pydantic-settings

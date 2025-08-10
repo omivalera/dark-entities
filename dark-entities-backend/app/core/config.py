@@ -1,6 +1,9 @@
 
 from typing import List, Optional
 import os
+from pydantic import field_validator
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
 
 
 def _parse_origins(raw: Optional[str] | List[str]) -> List[str]:
@@ -16,9 +19,6 @@ def _parse_origins(raw: Optional[str] | List[str]) -> List[str]:
 
 
 try:
-    from pydantic_settings import BaseSettings, SettingsConfigDict
-    from pydantic import field_validator
-
     class Settings(BaseSettings):
         model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
         PROJECT_NAME: str = "Dark Entities"
