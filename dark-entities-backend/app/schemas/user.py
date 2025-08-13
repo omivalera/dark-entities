@@ -14,26 +14,15 @@ class UserCreate(BaseModel):
 
 
 class UserRead(BaseModel):
-    email: EmailStr
-    name: str
-    last_name: str
-    birthdate: str
-    role: str
-
-    class UserRead(BaseModel):
-        id: int
-        email: str
-        name: str
-        last_name: str
-        birthdate: str
-        role: str
-
-        class Config:
-            orm_mode = True
+    email: str
+    name: Optional[str] = None
+    last_name: Optional[str] = None
+    birthdate: Optional[str] = None
     role: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
+
 
 
 class UserUpdate(BaseModel):

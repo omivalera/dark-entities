@@ -46,7 +46,7 @@ def list_users(
     
     users=Depends(get_all_users)
 ):
-    return users
+    return [UserRead.model_validate(user) for user in users]
 
 @router.put("/{user_id}", response_model=UserRead)
 def update_user(
